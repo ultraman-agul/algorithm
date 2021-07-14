@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .item {
+            height: 300px;
+            width: 300px;
+            background-color: red;
+            margin: 20px;
+            float: left;
+        }
+
+        .bottomdiv {
+            height: 200px;
+            width: 100%;
+            background-color: green;
+        }
+
+        /* .container {
+            overflow: hidden;
+        } */
+        .clearfix::after {
+            content: '';
+            display: table;
+            clear: both;
+        }
+
+        /* 兼容IE低版本 */
+        .clearfix {
+            *zoom: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container clearfix">
+        <div class="item">item1</div>
+        <div class="item">item2</div>
+    </div>
+    <div class='bottomdiv'>
+        dasfyasklghas
+    </div>
+</body>
+
+</html>

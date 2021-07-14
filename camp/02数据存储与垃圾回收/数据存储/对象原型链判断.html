@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        console.log(Object.prototype.toString.call('asdb'))         // [object String]
+        console.log(Object.prototype.toString.call(false))         // [object Boolean]
+        console.log(Object.prototype.toString.call(123))         // [object Number]
+        console.log(Object.prototype.toString.call(undefined))         // [object Undefined]
+        console.log(Object.prototype.toString.call(Symbol(1)))         // [object Symbol]
+        console.log(Object.prototype.toString.call(null))         // [object Null]
+        console.log(Object.prototype.toString.call({ name: 'zs' }))         // [object Object]
+        console.log(Object.prototype.toString.call([]))         // [object Array]
+        console.log(Object.prototype.toString.call(function f1() { }))         // [object Function]
+        console.log(Object.prototype.toString.call(new Date()))         // [object Date]
+        console.log(Object.prototype.toString.call(/\d/))         // [object RegExp]
+
+    </script>
+</body>
+
+</html>
