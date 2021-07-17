@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //1.map的键名可以是任意数据
+        // let obj = { name: 'zs', age: 12 }
+        // let map = new Map()
+        // map.set(obj, 'asd')
+        // console.log(map)
+
+        //2.键值对按照插入顺序排序
+        // let map = new Map([[1, '111111'], [2, '222222222222']])
+        // let map2 = new Map([[2, '222222222222'], [1, '111111']])
+        // console.log(map, map2);
+        // // 对象会自动排序
+        // let obj = { '2': 'zs', '1': 'ls' }
+        // console.log(obj)
+
+        //3.map可迭代
+        // let map = new Map([
+        //     ['zs', 19],
+        //     ['lis', 24],
+        //     ['ww', 23]
+        // ])
+        // for (let [key, value] of map) {
+        //     console.log(key, value)
+        // }
+        //obj 不可迭代
+        let obj = {
+            'zs': 19,
+            'ls': 20,
+            'ww': 30
+        }
+        for (let [key, value] of obj) { //obj is not iterable
+            console.log(key, value)
+        }
+    </script>
+</body>
+
+</html>

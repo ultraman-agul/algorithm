@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //1.只能将对象作为键名
+        // 2.键名是弱引用，如果键名销毁，该属性就销毁 (IE打开)
+        var weakmap = new WeakMap();
+        var o = { num: 1 };
+        weakmap.set(o, 111);
+        o = null;
+        console.log(weakmap);
+
+        // 3.不能遍历
+        for (var item of weakmap) {  //weakmap is not iterable
+            console.log(item);
+        }
+    </script>
+</body>
+
+</html>
