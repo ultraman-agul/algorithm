@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id='postbtn'>发送post请求</button>
+    <button id='getbtn'>发送get请求</button>
+
+    <script>
+        function AJAX(type, url, data, success, failed) {
+            // 创建 xhr对象
+            let xhr = null
+            if (window.XMLHttpRequest) {
+                xhr = new XMLHttpRequest()
+            } else { // 兼容ie
+                xhr = new ActiveXObject('Microsoft.XMLHTTP')
+            }
+            type = type.toUpperCase()
+            let random = Math.random() // 用于清除缓存
+            if (typeof data === 'object') {
+                // 拼接字符串
+                let str = ''
+                for (let key in data) {
+                    str += key + '=' + data[key] + '&'
+                }
+                data = str.replace(/&$/, '')
+            }
+            if (type === "GET") {
+                if (data) {
+                    xhr.open(type, url + '?' + data)
+                } else {
+                    xhr.open(type, url + '?t=' + random)
+                }
+                xhr.send()
+            } else if (type === 'POST') {
+                xhr.open(type, url)
+                xhr.setRequestHeader('Content-type', 'application/x-www-form-encoded')
+                xhr.send(data)
+            }
+            // 处理返回的数据
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        success(xhr.responseText)
+                    } else {
+                        if (failed) {
+                            failed(xhr.status)
+                        }
+                    }
+                }
+            }
+        }
+
+
+        document.querySelector('#postbtn').onclick = function () {
+            let data = {
+                name: 'agul',
+                age: '20'
+            }
+            AJAX('post', 'http://127.0.0.1:3038', data, function (resdata) { console.log(resdata) }, function (resstatus) { console.log(resstatus) })
+        }
+
+        // document.querySelector('#getbtn').onclick = function () {
+        //     AJAX('get', 'http://127.0.0.1:3038', '', function (resdata) { console.log(resdata) }, function (resstatus) { console.log(resstatus) })
+        // }
+        document.querySelector('#getbtn').onclick = function () {
+            AJAX('get', 'http://127.0.0.1:3038', {
+                name: 'zs',
+                age: '12'
+            }, function (resdata) { console.log(resdata) }, function (resstatus) { console.log(resstatus) })
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    我是请求来的数据11111111222affdsfsdf
+    <button>点击按钮发送请求</button>
+    <script>
+        function Ajax(type, url, data, success, failed) {
+            // 创建ajax对象
+            var xhr = null;
+            if (window.XMLHttpRequest) {
+                xhr = new XMLHttpRequest();
+            } else {
+                xhr = new ActiveXObject('Microsoft.XMLHTTP')
+            }
+
+            var type = type.toUpperCase();
+            // 用于清除缓存
+            var random = Math.random();
+
+            if (typeof data == 'object') {
+                var str = '';
+                for (var key in data) {
+                    str += key + '=' + data[key] + '&';
+                }
+                data = str.replace(/&$/, '');
+            }
+            if (type == 'GET') {
+                if (data) {
+                    xhr.open('GET', url + '?' + data);
+                } else {
+                    xhr.open('GET', url + '?t=' + random);
+                }
+                xhr.send();
+
+            } else if (type == 'POST') {
+                xhr.open('POST', url);
+                // 如果需要像 html 表单那样 POST 数据，请使用 setRequestHeader() 来添加 http 头。
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.send(data);
+            }
+
+            // 处理返回数据
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        success(xhr.responseText);
+                    } else {
+                        if (failed) {
+                            failed(xhr.status);
+                        }
+                    }
+                }
+            }
+        }
+        var sendData = { name: 'asher', sex: 'male' };
+
+        document.querySelector('button').onclick = function () {
+            Ajax('POST', 'http://127.0.0.1:3038', sendData, function (data) {
+                console.log(data);
+            }, function (error) { console.log(error); });
+        }
+    </script>
+    <!-- <script>
+        //1. 创建一个对象
+
+        var request = new XMLHttpRequest()
+        //2. 监听请求成功后的状态变化
+
+        request.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(request.responseText)
+            }
+        };
+        //第三行的 request.responseText 就是服务器返回的内容了（默认是字符串）
+
+        //3. 设置请求参数
+
+        request.open("GET", "http://127.0.0.1:3038/?name=asher&sex=male", true);
+        //4. 发送请求
+
+        request.send();
+      
+    </script> -->
+</body>
+
+</html>
