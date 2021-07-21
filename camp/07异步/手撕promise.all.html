@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function promiseAll(promiseArr) {
+            return new Promise(function (resolve, reject) {
+                if (!Array.isArray(promiseArr)) {
+                    return reject(new TypeError('这不是数组'))
+                }
+                let resolveCount = 0
+                let promiseNum = promiseArr.length
+                let result = new Array(promiseNum)
+                for (let i = 0; i < promiseNum; i++) {
+                    Promise.resolve(promiseArr[i]).then(function (value) {
+                        resolveCount++
+                        result[i] = value
+                        if (resolveCount === promiseNum) {
+                            return resolve(result)
+                        }
+                    }, function (reason) {
+                        return reject(reason)
+                    })
+                }
+            })
+        }
+
+
+        var promise1 = Promise.reject(3);
+        var promise2 = new Promise(function (resolve, reject) {
+            setTimeout(resolve, 100, 'foo');
+        });
+        var promise3 = 42;
+
+        promiseAll([promise1, promise2, promise3]).then((result) => {
+            console.log(result)
+        }).catch((error) => {
+            console.log(error)      // 失败了，打出 '失败'
+        })
+    </script>
+</body>
+
+</html>
