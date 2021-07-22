@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Person {
+            constructor(name, age) {
+                this.name = name
+                this.age = age
+            }
+            getName = function () {
+                console.log('调用了父类的方法')
+                console.log(this.name)
+            }
+        }
+
+        let p1 = new Person('zs', 20)
+        console.log(p1)
+        p1.getName()
+
+        class Student extends Person {
+            constructor(name, age, xuehao) {
+                super(name, age)
+                this.xuehao = xuehao
+            }
+            getAge = function () {
+                console.log(this.age)
+            }
+        }
+
+        let s1 = new Student('wangwu', 30, '123456')
+        console.log(s1)
+        s1.getAge()
+    </script>
+</body>
+
+</html>

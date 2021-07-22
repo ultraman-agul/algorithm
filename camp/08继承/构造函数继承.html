@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Person(name, age) {
+            this.name = name
+            this.age = age
+            this.setName = function () {
+
+            }
+        }
+        Person.prototype.setAge = function () { }
+
+        function Student(name, age) {
+            Person.call(this, name, age)
+            this.xuehao = '123456'
+        }
+        // Student.prototype.constructor = Student
+        let s1 = new Student('zs', 20)
+        console.log(s1)
+        console.log(s1.name)
+        console.log(s1.xuehao)
+        // 没有继承person的原型链
+        console.log(s1.setAge())  // Uncaught TypeError:s1.setAge is not a function
+    </script>
+</body>
+
+</html>

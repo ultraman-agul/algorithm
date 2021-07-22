@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Person(name, age) {
+            this.name = name
+            this.age = age
+            this.setName = function () {
+
+            }
+        }
+
+        function Student(xuehao) {
+            this.xuehao = xuehao
+        }
+        Student.prototype = new Person('zs', 18)
+        Student.prototype.constructor = Student
+
+        let s1 = new Student('123456')
+        let s2 = new Student('2018123123')
+        console.log(s1, s2)
+        s2.__proto__.name = 'ls'   // 子类属性共享父类属性
+        console.log(s1.name)
+        console.log(s2.name)
+        console.log(s1.xuehao)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1.
+        // const animals = {};
+        // let dog = { emoji: '🐶' }
+        // let cat = { emoji: '🐈' }
+
+        // animals[dog] = { ...dog, name: "Mara" }
+        // animals[cat] = { ...cat, name: "Sara" }
+
+        // console.log(animals[dog])
+        //emoji: '🐈',name:"Sara"
+        // 因为属性名如果是非字符串会被转换成字符串,转换完都是[object Object]
+
+        // 2.
+        const user = {
+            email: "e@mail.com",
+            password: "12345"
+        }
+
+        const updateUser = ({ email, password }) => {
+            if (email) {
+                Object.assign(user, { email })
+            }
+
+            if (password) {
+                user.password = password
+            }
+
+            return user
+        }
+
+        const updatedUser = updateUser({ email: "new@email.com" })
+
+        console.log(updatedUser === user) //true 一直都在操作堆中的同一块空间   
+    </script>
+</body>
+
+</html>

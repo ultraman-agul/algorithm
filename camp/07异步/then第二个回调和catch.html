@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        let p1 = new Promise((resolve, reject) => {
+            // reject('err')
+            resolve('agul')
+        }).then(value => {
+            console.log(value)
+            throw Error('123')
+        }, reason => {
+            console.log(reason)
+        })
+        // .catch(err => {
+        //     console.log(err)
+        // })
+
+        // 如果同时存在,只有then的第二个参数可以捕获到Promise内部抛出的错误信息
+        // then中的第二个回调函数不能捕捉then中第一个函数的错误，而catch可以捕捉到。建议使用catch
+    </script>
+</body>
+
+</html>

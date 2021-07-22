@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //1.
+        // const myPromise = Promise.resolve(Promise.resolve("Promise!"));
+
+        // function funcOne() {
+        //     myPromise.then(res => res).then(res => console.log(res));
+        //     setTimeout(() => console.log("Timeout!", 0));
+        //     console.log("Last line!");
+        // }
+
+        // async function funcTwo() {
+        //     const res = await myPromise;
+        //     console.log(await res);
+        //     setTimeout(() => console.log("Timeout!", 0));
+        //     console.log("Last line!");
+        // }
+
+        // funcOne();
+        // funcTwo();
+        // // LastLine
+        // // Promise!
+        // // Promise!
+        // // LastLine
+        // // Timeout!
+        // // Timeout!
+
+        //2.
+        // for (var i = 0; i < 3; i++) {
+        //     setTimeout(() => console.log(i), 1)
+        // }
+
+        // for (let i = 0; i < 3; i++) {
+        //     setTimeout(() => console.log(i), 1)
+        // }
+        // 333 012   let形成块级作用域
+
+        // console.log(Promise.resolve(5))  //Promise {<fulfilled>: 5}
+
+        // 4.
+        // const myPromise = () => Promise.resolve('I have resolved!')
+
+        // function firstFunction() {
+        //     myPromise().then(res => console.log(res))
+        //     console.log('second')
+        // }
+
+        // async function secondFunction() {
+        //     console.log(await myPromise())
+        //     console.log('second')
+        // }
+
+        // firstFunction()
+        // secondFunction()
+        // // second
+        // // I hava resolved
+        // // I hava resolved
+        // // second
+
+        // 5.
+        async function getData() {
+            return await Promise.resolve("I made it!"); //遇到微任务,先返回执行同步代码
+        }
+
+        const data = getData();
+        console.log(data); //Promise {<pending>}
+    </script>
+</body>
+
+</html>
