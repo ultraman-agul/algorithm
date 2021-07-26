@@ -50,9 +50,9 @@
 </template>
 
 <script>
-  import {userInfo, changeAvatar} from '@/api/user'
-  import {getInfo} from '@/utils/auth'
-  import {uploadToken, upload} from '@/api/upload'
+  import { userInfo, changeAvatar } from '@/api/user'
+  import { getInfo } from '@/utils/auth'
+  import { uploadToken, upload } from '@/api/upload'
   import config from '@/config'
 
   export default {
@@ -142,12 +142,12 @@
         } else {
           uploadToken().then((response) => {
             if (response.data.status === 200) {
-              let data = {token: response.data.uptoken, file}
+              let data = { token: response.data.uptoken, file }
               upload(data).then((upResponse) => {
-                let pic_url = config.domain + upResponse.data.key
+                let pic_url = config.domain + '/' + upResponse.data.key
                 this.avatar = pic_url;
                 this.loading = false;
-                changeAvatar({pic_url}).then(() => {
+                changeAvatar({ pic_url }).then(() => {
                 })     //更新到数据库
               })
             } else {
@@ -169,7 +169,9 @@
       this.username = getInfo();
       if (this.username) {
         userInfo().then((response) => {
-          this.avatar = response.data.data.avatar;
+          let avatarStr = response.data.data.avatar
+          avatarStr = avatarStr.replace('.com', '.com/')
+          this.avatar = avatarStr;
         })
       }
     }
@@ -191,6 +193,7 @@
     display: flex;
     align-items: center;
     background: #fff;
+
     .avatar {
       @include px2rem(width, 115);
       @include px2rem(height, 115);
@@ -199,14 +202,17 @@
       border-radius: 50%;
       overflow: hidden;
       border: 1px solid #333;
+
       img {
         width: 100%;
         height: 100%;
       }
     }
+
     .login {
       font-size: 0.45rem;
     }
+
     .username {
       font-size: 0.5rem;
     }
@@ -215,23 +221,28 @@
   .fun-container {
     margin-top: 0.3rem;
     background: #fff;
+
     ul {
       @include clearfix;
+
       li {
         width: 25%;
         @include px2rem(height, 145);
         float: left;
         text-align: center;
         margin: 0.2rem 0;
+
         .img {
           @include px2rem(width, 70);
           @include px2rem(height, 70);
           margin: 0.1rem auto;
+
           img {
             width: 100%;
             height: 100%;
           }
         }
+
         span {
           font-size: 0.35rem;
         }
@@ -239,9 +250,11 @@
     }
   }
 
-  .assets, .intro {
+  .assets,
+  .intro {
     margin-top: 0.2rem;
     background: #fff;
+
     h3 {
       font-size: 0.5rem;
       margin-left: 0.3rem;
@@ -249,27 +262,33 @@
       padding-bottom: 0.2rem;
       border-bottom: 1px solid $bottomLine;
     }
+
     ul {
       display: flex;
       padding: 0.3rem 0;
+
       li {
         flex: 1;
         text-align: center;
+
         .img {
           @include px2rem(width, 55);
           @include px2rem(height, 55);
           margin: 0.1rem auto;
+
           img {
             width: 100%;
             height: 100%;
           }
         }
+
         span {
           font-size: 0.35rem;
         }
       }
     }
   }
+
   .intro {
     padding-bottom: 1rem;
   }
