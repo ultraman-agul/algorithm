@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function promiseALL(arr) {
+            if (!Array.isArray(arr)) {
+                console.log('type error!')
+                return;
+            }
+            return new Promise((resolve, reject) => {
+                let promisesLength = arr.length
+                let resolveValueArr = []
+                let resolveCount = 0
+                for (let i of arr) {
+                    Promise.resolve(i).then(val => {
+                        resolveValueArr.push(val)
+                        resolveCount++
+                        if (resolveCount === promisesLength) {
+                            resolve(resolveValueArr)
+                        }
+                    }).catch(reason => {
+                        reject(reason)
+                    })
+                }
+            })
+        }
+
+        setTimeout(function () {
+            console.log(promiseALL([1, 'agul', Promise.resolve('cgl')]))
+        }, 1000)
+
+        function promiseRACE(arr) {
+            if (!Array.isArray(arr)) {
+                console.log('type error')
+            }
+            return new Promise((resolve, reject) => {
+                arr.forEach(val => {
+                    Promise.resolve(val).then(data => {
+                        resolve(data)
+                    }).catch(reason => {
+                        reject(data)
+                    })
+                })
+            })
+        }
+
+        let p = new Promise((reslove, reject) => {
+            setTimeout(() => { reslove('延时了') }, 100)
+        })
+        console.log(promiseRACE([p, 'agul', Promise.resolve('cgl')]))
+    </script>
+</body>
+
+</html>

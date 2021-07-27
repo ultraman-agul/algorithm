@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function AJAX(type, url, data, success, failed) {
+            type = type.toUpperCase()
+            let randomNum = Math.random()
+            // 创建xhr
+            let xhr = null
+            if (window.XMLHttpRequest) {
+                xhr = new XMLHttpRequest()
+            } else {
+                xhr = new ActiveXObject('Microsoft.XMLHTTP')
+            }
+            // 拼接字符串
+            let dataStr = ''
+
+            if (typeof data === 'object') {
+                for (let i in data) {
+                    dataStr = dataStr + i + '=' + data[i] + '&'
+                }
+                dataStr = dataStr.replace(/&$/, '')
+            }
+
+            if (type === 'GET') {
+                if (data) {
+                    xhr.open('GET', url + '?' + dataStr)
+                } else {
+                    xhr.open('GET', url + '?t=' + randomNum)
+                }
+                xhr.send()
+            } else if (type === 'POST') {
+                xhr.open('POST', url)
+                xhr.setRequestHeader('Content-type', 'application/x-www-from-urlencoded')
+                xhr.send(dataStr)
+            }
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        success(xhr.responseText)
+                    } else {
+                        if (failed) {
+                            failed(xhr.responseText)
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function deepClone(obj, hash = new WeakMap()) {
+            if (obj == null || typeof obj !== 'object') {
+                return obj;
+            }
+            if (obj instanceof Date) {
+                return new Date(obj)
+            }
+            if (obj instanceof RegExp) {
+                return new RegExp(obj)
+            }
+            if (hash.get(obj)) {
+                return hash.get(obj)
+            }
+            let cloneObj = new obj.constructor()
+            hash.set(obj, cloneObj)
+            for (let key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    // 实现递归拷贝
+                    cloneObj[key] = deepClone(obj[key], hash)
+                }
+            }
+            return cloneObj;
+        }
+
+        let obj = { name: 'zs', age: 20, address: { x: 200 } }
+        obj.o = obj // 循环引用
+        let clone = deepClone(obj)
+        obj.address.x = 100
+        console.log(obj)
+        console.log(clone)
+    </script>
+</body>
+
+</html>
