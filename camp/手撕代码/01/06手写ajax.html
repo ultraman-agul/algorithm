@@ -9,6 +9,8 @@
 </head>
 
 <body>
+    <button>发送get请求</button>
+    <button>发送post请求</button>
     <script>
         function AJAX(type, url, data, success, failed) {
             type = type.toUpperCase()
@@ -55,6 +57,14 @@
                 }
             }
         }
+
+        const data = {
+            name: 'agul',
+            age: 12
+        }
+        document.querySelectorAll('button')[0].onclick = function () { AJAX('get', 'http://127.0.0.1:3000/get', data, function (val) { console.log(val) }, function (reason) { console.log(reason) }) }
+        document.querySelectorAll('button')[1].onclick = function () { AJAX('POst', 'http://127.0.0.1:3000/post', data, function (val) { console.log(val) }, function (reason) { console.log(reason) }) }
+
     </script>
 </body>
 

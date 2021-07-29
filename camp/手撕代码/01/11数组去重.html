@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let arr = [12, 21, 12, 54, 2, 53, 2, 4, 6, 4]
+        // 1.set去重
+        // function quChong(arr1) {
+        //     return Array.from(new Set(arr1))
+        // }
+
+        // 2.indexOf去重
+        // function quChong(arr1) {
+        //     let resultArr = []
+        //     for (let i of arr1) {
+        //         if (resultArr.indexOf(i) === -1) {
+        //             resultArr.push(i)
+        //         }
+        //     }
+        //     return resultArr
+        // }
+
+        // 3.双重for循环
+        // function quChong(arr1) {
+        //     for (let i = 0; i < arr1.length; i++) {
+        //         for (let j = i + 1; j < arr1.length; j++) {
+        //             if (arr1[i] === arr1[j]) {
+        //                 arr1.splice(j, 1)
+        //                 j--
+        //             }
+        //         }
+        //     }
+        //     return arr1
+        // }
+
+        // 4. filter + indexOf
+        // function quChong(arr1) {
+        //     return arr1.filter((val, index) => {
+        //         return arr1.indexOf(val, 0) === index
+        //     })
+        // }
+
+        // 5. map
+        function quChong(arr1) {
+            let map = new Map()
+            let resultArr = []
+            for (let i of arr1) {
+                if (!map.has(i)) {
+                    map.set(i, true)
+                    resultArr.push(i)
+                }
+            }
+            return resultArr
+        }
+        let result = quChong(arr)
+        console.log(result)
+    </script>
+</body>
+
+</html>

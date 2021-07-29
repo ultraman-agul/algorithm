@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class='vdom' id='first'>
+        <p>内容</p>
+        <ul>
+            <li>1</li>
+            <li>2</li>
+        </ul>
+    </div>
+    <script>
+        let obj = {
+            tag: 'div',
+            data: {
+                className: 'vdom',
+                id: 'first'
+            },
+            children: [
+                {
+                    tag: 'p',
+                    children: '内容'
+                },
+                {
+                    tag: 'ul',
+                    children: [
+                        {
+                            tag: 'li',
+                            children: '1'
+                        },
+                        {
+                            tag: 'li',
+                            children: '2'
+                        }
+                    ]
+                }
+            ]
+        }
+    </script>
+</body>
+
+</html>
