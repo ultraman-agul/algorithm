@@ -75,7 +75,7 @@ export default class BaseClass {
     ip = ipArr[ipArr.length - 1];//切割字符串提取ip
 
     if (process.env.NODE_ENV == 'dev') {    //开发环境
-      ip = '113.74.165.25';
+      ip = '183.29.143.66';
     }
 
     try {
@@ -95,7 +95,7 @@ export default class BaseClass {
       //   return;
       // }
       console.log("获取的地址是", ip);
-      //ip = '113.74.165.25';
+      //ip = '183.29.143.66';
       let getResult = await this.fetch('http://apis.map.qq.com/ws/location/v1/ip', {
         ip: ip,
         key: config.tencentkey,
