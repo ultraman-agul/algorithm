@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function promiseAll(arr) {
+            return new Promise((resolve, reject) => {
+                if (!Array.isArray(arr)) return reject(new TypeError('arguments must be an array'))
+                let resolveCount = 0
+                let resultArr = []
+                for (let i of arr) {
+                    Promise.resolve(i).then(data => {
+                        resultArr.push(i)
+                        resolveCount++
+                        if (resolveCount === arr.length) {
+                            return resolve(resultArr)
+                        }
+                    }).catch(reason => {
+                        return reject(reason)
+                    })
+                }
+            })
+        }
+
+        function promiseRace(arr) {
+            return new Promise((resolve, reject) => {
+                if (!Array.isArray(arr)) return reject(new TypeError('arguments must be an array'))
+                for (let i of arr) {
+                    Promise.resolve(i).then(data => {
+                        return resolve(i)
+                    }).catch(err => {
+                        return reject(err)
+                    })
+                }
+            })
+        }
+
+
+        let p = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve('延迟了1s')
+                console.log('还会执行')
+            }, 1000)
+        })
+
+        promiseAll(['sad', 21312, { name: 'zs' }, p]).then(data => {
+            console.log(data)
+        }).catch(err => {
+            console.log(err)
+        })
+
+        promiseRace([p, 'sad', 21312, { name: 'zs' }]).then(data => {
+            console.log(data)
+        }).catch(err => {
+            console.log(err)
+        })
+    </script>
+</body>
+
+</html>

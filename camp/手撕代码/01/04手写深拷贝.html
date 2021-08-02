@@ -26,7 +26,7 @@
             let cloneObj = new obj.constructor()
             hash.set(obj, cloneObj)
             for (let key in obj) {
-                if (obj.hasOwnProperty(key)) {
+                if (obj.hasOwnProperty(key)) {  // 只拷贝对象私有属性
                     // 实现递归拷贝
                     cloneObj[key] = deepClone(obj[key], hash)
                 }

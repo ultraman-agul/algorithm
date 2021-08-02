@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .parent {
+            width: 400px;
+            /* height: 400px; */
+            background-color: tomato;
+            border: 2px solid red;
+        }
+
+        .child {
+            width: 100px;
+            height: 100px;
+            background-color: green;
+            float: left;
+        }
+
+        /* 1给父元素固定高度 */
+        /* .parent {
+            height: 400px;
+        } */
+        /* 2给父元素下添加新标签清除 */
+        /* .cl {
+            clear: both;
+        } */
+        /* 3.父元素添加伪元素::after */
+        /* .parent::after {
+            height: 0;
+            content: '';
+            display: block;
+            visibility: hidden;
+            clear: both;
+        } */
+        /* 4.父元素添加样式overflow:hidden创建BFC */
+        /* .parent {
+            overflow: hidden;
+        } */
+        .parent::after {
+            content: '';
+            display: table;
+            clear: both;
+        }
+
+        .parent {
+            *zoom: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="parent">
+        <div class="child"></div>
+        <!-- <div class="cl"></div> -->
+    </div>
+</body>
+
+</html>

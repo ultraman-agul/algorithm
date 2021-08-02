@@ -28,8 +28,12 @@
         // let s1 = new Student('123')
         // let s2 = new Student('456')
         // console.log(s1, s2)
+
+        // s1.__proto__.showName = function () {
+        //     console.log(this.age)
+        // }
         // s1.showName()
-        // s2.showAge()
+        // s2.showAge()  // 缺点：不能向父类传参，可以修改父类的方法
 
         // 2.构造函数继承
         // function Person(name, age) {
@@ -53,6 +57,8 @@
         // let s1 = new Student('123')
         // let s2 = new Student('456')
         // console.log(s1, s2)
+        // // s1.showAge()  // 报错 ，不能继承父类原型上的方法
+        // s2.showXuehao()
 
         // 3. 构造函数和原型链结合实现继承
         // function Person(name, age) {
@@ -62,7 +68,9 @@
         //         console.log(this.name)
         //     }
         // }
-
+        // Person.prototype.showAge = function () {
+        //     console.log(this.age)
+        // }
         // function Student(name, age, xuehao) {
         //     Person.call(this, name, age)
         //     this.xuehao = xuehao
@@ -71,11 +79,12 @@
         //     }
         // }
         // Student.prototype = new Person()
-        // Student.prototype.constructor = Student
+        // // console.log(Student.prototype.constructor)  // function Person()...
+        // Student.prototype.constructor = Student  //修改构造函数指向
         // let s1 = new Student('zs', 12, 13234)
         // let s2 = new Student('ls', 24, 12345)
         // console.log(s1, s2)
-
+        // s1.showAge() //12
 
         // 4.ES6中class的继承
         class Person {
@@ -94,9 +103,9 @@
                 super(name, age)
                 this.xuehao = xuehao
             }
-            showName() {
-                console.log('调用了子类的showname')
-            }
+            // showName() {
+            //     console.log('调用了子类的showname')
+            // }
         }
         let s1 = new Student('wangwu', 12, 132343)
         console.log(s1)
