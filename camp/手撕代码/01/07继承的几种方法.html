@@ -108,6 +108,9 @@
             // }
         }
         let s1 = new Student('wangwu', 12, 132343)
+        s1.__proto__.showName = function () {
+            console.log('修改')
+        }
         console.log(s1)
         s1.showName()
     </script>

@@ -9,35 +9,33 @@
 </head>
 
 <body>
+
     <button>发送get请求</button>
     <button>发送post请求</button>
     <script>
-        function AJAX(type, url, data, success, failed) {
-            type = type.toUpperCase()
-            let randomNum = Math.random()
-            // 创建xhr
+        function ajax(type, url, data, success, failed) {
             let xhr = null
             if (window.XMLHttpRequest) {
                 xhr = new XMLHttpRequest()
             } else {
-                xhr = new ActiveXObject('Microsoft.XMLHTTP')
+                xhr = new ActiveXObject('Microsoft', 'XMLHTTP')
             }
-            // 拼接字符串
+            type = type.toUpperCase()
+            let randomNum = Math.random()
             let dataStr = ''
-
             if (typeof data === 'object') {
                 for (let i in data) {
                     dataStr = dataStr + i + '=' + data[i] + '&'
                 }
                 dataStr = dataStr.replace(/&$/, '')
             }
-
             if (type === 'GET') {
                 if (data) {
-                    xhr.open('GET', url + '?' + dataStr)
+                    url = url + '?' + dataStr
                 } else {
-                    xhr.open('GET', url + '?t=' + randomNum)
+                    url = url + '?' + randomNum
                 }
+                xhr.open('GET', url)
                 xhr.send()
             } else if (type === 'POST') {
                 xhr.open('POST', url)
@@ -46,15 +44,14 @@
             }
 
             xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
+                if (xhr.readyState === 4)
                     if (xhr.status === 200) {
                         success(xhr.responseText)
                     } else {
                         if (failed) {
-                            failed(xhr.responseText)
+                            failed(xhr.status)
                         }
                     }
-                }
             }
         }
 
@@ -62,8 +59,8 @@
             name: 'agul',
             age: 12
         }
-        document.querySelectorAll('button')[0].onclick = function () { AJAX('get', 'http://127.0.0.1:3000/get', data, function (val) { console.log(val) }, function (reason) { console.log(reason) }) }
-        document.querySelectorAll('button')[1].onclick = function () { AJAX('POst', 'http://127.0.0.1:3000/post', data, function (val) { console.log(val) }, function (reason) { console.log(reason) }) }
+        document.querySelectorAll('button')[0].onclick = function () { ajax('get', 'http://127.0.0.1:3000/get', data, function (val) { console.log(val) }, function (reason) { console.log(reason) }) }
+        document.querySelectorAll('button')[1].onclick = function () { ajax('POst', 'http://127.0.0.1:3000/post', data, function (val) { console.log(val) }, function (reason) { console.log(reason) }) }
 
     </script>
 </body>

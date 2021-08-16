@@ -33,9 +33,13 @@
             })
         }
 
-        setTimeout(function () {
-            console.log(promiseALL([1, 'agul', Promise.resolve('cgl')]))
-        }, 1000)
+        let resP = promiseALL([1, 'agul', Promise.resolve('cgl')])
+        resP.then(value => {
+            console.log(value)
+        })
+        // setTimeout(function () {
+        //     console.log(promiseALL([1, 'agul', Promise.resolve('cgl')]))
+        // }, 1000)
 
         function promiseRACE(arr) {
             if (!Array.isArray(arr)) {
@@ -55,7 +59,11 @@
         let p = new Promise((reslove, reject) => {
             setTimeout(() => { reslove('延时了') }, 100)
         })
-        console.log(promiseRACE([p, 'agul', Promise.resolve('cgl')]))
+        // console.log(promiseRACE([p, 'agul', Promise.resolve('cgl')]))
+        let pRes = promiseRACE([p, 'agul', Promise.resolve('cgl')])
+        pRes.then(value => {
+            console.log(value)
+        })
     </script>
 </body>
 
