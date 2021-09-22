@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="jsCountdown">
+        <span>01天</span>
+        <span>02:</span>
+        <span>03:</span>
+        <span>04</span>
+    </div>
+    <script>
+        function second(second) {
+            let day = Math.floor(second / (3600 * 24))
+            let hour = Math.floor((second % (3600 * 24)) / 3600)
+            let min = Math.floor((second % (3600 * 24) % 3600) / 60)
+            let sec = Math.floor(((second % (3600 * 24) % 3600) % 60) % 60)
+            return { day, hour, min, second: sec }
+        }
+
+        function render(data) {
+            let result = data
+            for (key in result) {
+                if (result[key].toString().length < 2) {
+                    result[key] = '0' + result[key]
+                }
+            }
+
+            let box = document.querySelector('#jsCountdown')
+            let spanlist = document.querySelectorAll('span')
+            if (result.day === '00') {
+                spanlist[0].classList.add('hide')
+            } else {
+                spanlist[0].classList.remove('hide')
+            }
+            spanlist[0].innerText = result.day + '天'
+            spanlist[1].innerText = result.hour + ':'
+            spanlist[2].innerText = result.min + ':'
+            spanlist[3].innerText = result.second
+            console.log(result)
+        }
+
+        render(second(3601))
+    </script>
+</body>
+
+</html>

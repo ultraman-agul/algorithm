@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table.game {
+            font-size: 14px;
+            border-collapse: collapse;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        table.game td {
+            border: 1px solid #e1e1e1;
+            padding: 0;
+            height: 30px;
+            text-align: center;
+        }
+
+        table.game td.current {
+            background: #1890ff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="jsContainer">
+        <table class="game">
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="current"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        function bind() {
+            let target = document.querySelector('.current')
+            document.onkeydown = event => {
+                console.log('press')
+                if (!event) return;
+                var code = event.keyCode || '';
+                if (!{ '37': 1, '38': 1, '39': 1, '40': 1 }[code]) return;
+                event.preventDefault && event.preventDefault();
+                //TODO: 请实现按键控制
+                if (code === 37) {
+                    // console.log(target)
+                    console.log('press left')
+                    target.classList.remove('current')
+                    if (target === target.parentElement.firstElementChild) {
+                        target.parentElement.lastElementChild.classList.add('current')
+                        target = target.parentElement.lastElementChild
+                    } else {
+                        target.previousElementSibling.classList.add('current')
+                        target = target.previousElementSibling
+                    }
+                } else if (code === 39) {
+                    target.classList.remove('current')
+                    if (target === target.parentElement.lastElementChild) {
+                        target.parentElement.firstElementChild.classList.add('current')
+                        target = target.parentElement.firstElementChild
+                    } else {
+                        target.nextElementSibling.classList.add('current')
+                        target = target.nextElementSibling
+                    }
+                }else if(code === 38){
+                    target.classList.remove('current')
+                    if (target === target.parentElement.lastElementChild) {
+                        target.parentElement.firstElementChild.classList.add('current')
+                        target = target.parentElement.firstElementChild
+                    } else {
+                        target.nextElementSibling.classList.add('current')
+                        target = target.nextElementSibling
+                    }
+                }
+            };
+        }
+        bind()
+    </script>
+</body>
+
+</html>
