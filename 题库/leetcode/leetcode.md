@@ -1113,6 +1113,100 @@ var findMin = function(nums) {
 
 
 
+### [187. 重复的DNA序列](https://leetcode-cn.com/problems/repeated-dna-sequences/)
+
+```js
+/**
+ * @param {string} s
+ * @return {string[]}
+ */
+// Map写法，如果已存在则加一，不存在则为一，最后大于一则加入返回的数组
+var findRepeatedDnaSequences = function(s) {
+    const map = new Map()
+    const result = []
+    for(let i = 0; i <= s.length - 10; i++){
+        let str = s.slice(i, i + 10)
+        if(map.has(str)){
+            map.set(str, map.get(str)+1)
+        }else{
+            map.set(str, 1)
+        }
+    }
+    map.forEach((value, key) => {
+        if(value > 1){
+            result.push(key)
+        }
+    })
+    return result
+};
+
+// Set写法，两个set，如果第一个存在则第二个set执行add，否则第一个set执行add
+var findRepeatedDnaSequences = function(s) {
+    const set = new Set()
+    const result = new Set()
+    for(let i = 0; i <= s.length - 10; i++){
+        let str = s.substring(i, i + 10)
+        if(set.has(str)){
+            result.add(str)
+        }else{
+            set.add(str)
+        }
+    }
+    return Array.from(result)
+};
+```
+
+
+
+### [198. 打家劫舍](https://leetcode-cn.com/problems/house-robber/)
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+// 动态规划
+var rob = function(nums) {
+    if(nums.length === 0){
+        return 0
+    }
+    if(nums.length === 1){
+        return nums[0]
+    }
+    const memo = []
+    memo[0] = nums[0]
+    memo[1] = Math.max(nums[0], nums[1])
+    for(let i = 2; i < nums.length; i++){ 
+        // 每一步都判断当前值加上上个的和与上个的大小，取大的值为当前值
+        memo[i] = Math.max(nums[i] + memo[i-2], memo[i-1])
+    }
+    return memo[nums.length - 1]
+};
+
+// 方法二 类似于斐波那契数列，去除了临时数组，更新前两个的值。
+var rob = function(nums) {
+    if(nums.length === 0){
+        return 0
+    }
+    if(nums.length === 1){
+        return nums[0]
+    }
+    let pre2 = nums[0]
+    let pre1 = Math.max(nums[0], nums[1])
+    for(let i = 2; i < nums.length; i++){ 
+        // 每一步都判断当前值加上上个的和与上个的大小，取大的值为当前值
+        let temp = Math.max(nums[i] + pre2, pre1)
+        pre2 = pre1
+        pre1 = temp
+    }
+    return pre1
+};
+```
+
+
+
+
+
 ### [160. 相交链表](https://leetcode-cn.com/problems/intersection-of-two-linked-lists/)
 
 ```js
@@ -1146,6 +1240,435 @@ var getIntersectionNode = function(headA, headB) {
         }
     }
     return n1
+};
+```
+
+
+
+### [200. 岛屿数量](https://leetcode-cn.com/problems/number-of-islands/)
+
+```js
+/**
+ * @param {character[][]} grid
+ * @return {number}
+ */
+// 深度优先遍历＋沉没
+// 遇到1则count++，开始深度遍历遇到1则设置为0，指到周围都被0包围再遍历下一个
+var numIslands = function(grid) {
+    function dfs(row, col){
+        if(row < 0 || col < 0 || col > grid[0].length - 1 || row > grid.length - 1 || grid[row][col] === '0'){
+            return ;
+        }
+        grid[row][col] = '0'
+        dfs(row-1, col)
+        dfs(row+1, col)
+        dfs(row, col-1)
+        dfs(row, col+1)
+    }
+
+    let count = 0
+    for(let i = 0; i < grid.length; i++){
+        for(let j = 0; j < grid[0].length; j++){
+            if(grid[i][j] === '1'){
+                count++
+                dfs(i, j)
+            }
+        }
+    }
+    return count
+};
+```
+
+
+
+### [217. 存在重复元素](https://leetcode-cn.com/problems/contains-duplicate/)
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var containsDuplicate = function(nums) {
+    const set = new Set()
+    for(let i of nums){
+        if(set.has(i)){
+            return true
+        }else{
+            set.add(i)
+        }
+    }
+    return false
+};
+```
+
+
+
+### [219. 存在重复元素 II](https://leetcode-cn.com/problems/contains-duplicate-ii/)
+
+```js
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {boolean}
+ */
+// 暴力法。On^2
+var containsNearbyDuplicate = function(nums, k) {
+    for(let i = 0; i < nums.length - 1; i++){
+        for(let j = i + 1; j - i <= k; j++){
+            if(j >= nums.length){
+                break
+            }
+            if(nums[i] === nums[j]){
+                return true
+            }
+        }
+    }
+    return false
+};
+
+// 使用map On
+var containsNearbyDuplicate = function(nums, k) {
+    const map = new Map()
+    for(let i = 0; i < nums.length; i++){
+        if(map.has(nums[i])){
+            if(Math.abs(map.get(nums[i]) - i) <= k){
+                return true
+            }else{
+                map.set(nums[i], i)
+            }
+        }else{
+            map.set(nums[i], i)
+        }
+    }
+    return false
+};
+```
+
+
+
+### [238. 除自身以外数组的乘积](https://leetcode-cn.com/problems/product-of-array-except-self/)
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+// 创建两个数组记录左边的乘积  右边的乘积，最后遍历相乘即可
+var productExceptSelf = function(nums) {
+    const len = nums.length
+    const [left, right] = [Array(len).fill(1), Array(len).fill(1)]
+    for(let i = 1; i <= nums.length; i++){
+        left[i] = nums[i-1] * left[i-1]
+    }
+    for(let i = nums.length - 2; i >=0; i--){
+        right[i] = nums[i+1] * right[i+1]
+    }
+    const result = []
+    for(let i = 0; i < nums.length; i++){
+        result[i] = left[i] * right[i]
+    }
+    return result
+};
+```
+
+
+
+### [242. 有效的字母异位词](https://leetcode-cn.com/problems/valid-anagram/)
+
+```js
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+// 创建一个map，第一个字符串的每个字符的个数相加，第二个字符串的每个字符的个数相减，最后判断都为0则为true
+var isAnagram = function(s, t) {
+    const map = new Map()
+    if(s.length !== t.length){
+        return false
+    }
+    for(let i = 0; i < s.length; i++){
+        if(map.has(s[i])){
+            map.set(s[i], map.get(s[i])+1)
+        }else{
+            map.set(s[i], 1)
+        }
+
+        if(map.has(t[i])){
+            map.set(t[i], map.get(t[i])-1)
+        }else{
+            map.set(t[i], -1)
+        }
+    }
+    for(let letter of map){
+        if(letter[1] !== 0){
+            return false
+        }
+    }
+    return true
+};
+```
+
+
+
+### [283. 移动零](https://leetcode-cn.com/problems/move-zeroes/)
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+
+// 方法1，遇到0则删除0，然后记录0的个数，最后面加上
+var moveZeroes = function(nums) {
+    let zeroNum = 0
+    for(let i = 0; i < nums.length; i++){
+        if(nums[i] === 0){
+            nums.splice(i, 1)
+            i--
+            zeroNum++
+        }
+    }
+    for(let i = 0; i < zeroNum; i++){
+        nums.push(0)
+    }
+    return nums
+};
+
+/**
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+// 方法二，把非零的都往前移，最后把后面的位置补充为0
+var moveZeroes = function(nums) {
+    let j = 0
+    for(let i = 0; i < nums.length; i++){
+        if(nums[i] !== 0){
+            nums[j] = nums[i]
+            j++
+        }
+    }
+
+    for(; j < nums.length; j++){
+        nums[j] = 0
+    }
+    return nums
+};
+```
+
+
+
+### [328. 奇偶链表](https://leetcode-cn.com/problems/odd-even-linked-list/)
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var oddEvenList = function(head) {
+    if(head === null){
+        return null
+    }
+    if(head.next === null){
+        return head
+    }
+    let odd = head
+    let even = head.next
+    const connect = head.next
+    while(even !== null && even.next !== null){  // 这里需要偶数进行判断，因为偶数在奇数前面，如果他的下一个不为空则奇数的下下个不为空，可以执行
+        odd.next = odd.next.next
+        odd = odd.next
+        even.next = even.next.next
+        even = even.next
+    }
+    odd.next = connect
+    return head
+};
+```
+
+
+
+### [349. 两个数组的交集](https://leetcode-cn.com/problems/intersection-of-two-arrays/)
+
+```js
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number[]}
+ */
+var intersection = function(nums1, nums2) {
+    if(nums1.length === 0 || nums2.length === 0){
+        return []
+    }
+    const set1 = new Set(nums1)
+    const set2 = new Set(nums2)
+    const result = []
+    for(let item of set1){
+        if(set2.has(item)){
+            result.push(item)
+        }
+    }
+    return result
+};
+```
+
+
+
+### [419. 甲板上的战舰](https://leetcode-cn.com/problems/battleships-in-a-board/)
+
+```js
+/**
+ * @param {character[][]} board
+ * @return {number}
+ */
+// 做法与200题岛屿数量一致，深度优先遍历沉没 
+var countBattleships = function(board) {
+    function dfs(row, col){
+        if(row < 0 || row > board.length-1 || col < 0 || col > board[0].length-1){
+            return ;
+        }
+        if(board[row][col] === 'X'){
+            board[row][col] = '.'
+            dfs(row-1, col)
+            dfs(row+1, col)
+            dfs(row, col-1)
+            dfs(row, col+1)
+        }
+    }
+
+    let result = 0
+    for(let i = 0; i < board.length; i++){
+        for(let j = 0; j < board[0].length; j++){
+            if(board[i][j] === 'X'){
+                result++
+                dfs(i, j)
+            }
+        }
+    }
+    return result
+};
+```
+
+
+
+### [445. 两数相加 II](https://leetcode-cn.com/problems/add-two-numbers-ii/)
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+var addTwoNumbers = function(l1, l2) {
+    const stack1 = []
+    const stack2 = []
+    while(l1 !== null){
+        stack1.push(l1.val)
+        l1 = l1.next
+    }
+    while(l2 !== null){
+        stack2.push(l2.val)
+        l2 = l2.next
+    }
+    let cur = null
+    let carry = 0
+    while(stack1.length !== 0|| stack2.length !== 0){
+        let sum = 0
+        if(stack1.length !== 0){
+            sum += stack1.pop()
+        }
+        if(stack2.length !== 0){
+            sum += stack2.pop()
+        }
+        sum += carry
+        const node = new ListNode(sum % 10)
+        carry = Math.floor(sum / 10)
+        node.next = cur
+        cur = node
+    }
+    if(carry !== 0){
+        const node = new ListNode(carry)
+        node.next = cur 
+        cur = node
+    }
+    return cur
+};
+```
+
+
+
+### [509. 斐波那契数](https://leetcode-cn.com/problems/fibonacci-number/)
+
+```js
+/**
+ * @param {number} n
+ * @return {number}
+ */
+// 递归的方式，从上往下推，计算每一个值都需要递归，时间复杂度高
+var fib = function(n) {
+    if(n <= 1){
+        return n
+    }
+    return fib(n-1) + fib(n-2)
+};
+
+// 方法二： 记忆化数组存储递归的值，等下次再需要这个值的时候如果存在则不需要递归了，时间复杂度大大降低
+var fib = function(n) {
+    if(n <= 1){
+        return n
+    }
+    const result = []
+    result[0] = 0
+    result[1] = 1
+    function memoize(num){
+        if(result[num] !== undefined){
+            return result[num]
+        }
+        return memoize(num-1) +  (num-2)
+    }
+    return memoize(n)
+};
+ 
+// 方法三：从下往上算，不过空间复杂度为On
+var fib = function(n) {
+    if(n <= 1) {
+        return n
+    }
+    const result = [0, 1]
+    for(let i = 2; i <= n; i++){
+        result[i] = result[i-1] + result[i-2]
+    }
+    return result[n]
+};
+
+// 方法三改进：用两个变量存储即可 
+var fib = function(n) {
+    if(n <= 1) {
+        return n
+    }
+    let pre2 = 0
+    let pre1 = 1
+    let result = 0
+    for(let i = 2; i <= n; i++){
+        result = pre2 + pre1
+        pre2 = pre1
+        pre1 = result
+    }
+    return result
 };
 ```
 
