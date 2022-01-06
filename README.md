@@ -1,5 +1,3 @@
-# algorithm
-记录一下做的题
 # leetcode
 
 
@@ -269,9 +267,9 @@ var removeNthFromEnd = function(head, n) {
 > 思路：
 >
 > 1.  栈的操作，后进先出。
-> 2.  如果Map中已经有了，则为左括号，入栈一个右括号。
-> 3.  如果没有则为右括号，需要出栈一个括号，如果不相同则为false。
-> 4.  最后栈为空则全部闭合。
+> 2. 如果Map中已经有了，则为左括号，入栈一个右括号。
+> 3. 如果没有则为右括号，需要出栈一个括号，如果不相同则为false。
+> 4. 最后栈为空则全部闭合。
 
 ```js
 /**
@@ -403,7 +401,21 @@ var groupAnagrams = function(strs) {
 > 思路： 动态规划的典型题，遍历每个元素时都要比较（自身）和（自身加上前面的值）哪个大？ 最后取得最大的值
 
 ```js
-/** * @param {number[]} nums * @return {number} */var maxSubArray = function(nums) {    let memo = nums[0]    let max = nums[0]    for(let i = 1; i < nums.length; i++) {        memo = Math.max(memo + nums[i], nums[i])        if(max < memo){            max = memo        }    }    return max}; 
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxSubArray = function(nums) {
+    let memo = nums[0]
+    let max = nums[0]
+    for(let i = 1; i < nums.length; i++) {
+        memo = Math.max(memo + nums[i], nums[i])
+        if(max < memo){
+            max = memo
+        }
+    }
+    return max
+}; 
 ```
 
 
@@ -411,7 +423,49 @@ var groupAnagrams = function(strs) {
 ### [54. 螺旋矩阵](https://leetcode-cn.com/problems/spiral-matrix/)
 
 ```js
-/** * @param {number[][]} matrix * @return {number[]} */var spiralOrder = function(matrix) {    if(matrix.length === 0){        return []    }    let top = 0    let right = matrix[0].length - 1    let bottom = matrix.length - 1    let left = 0    let direction = 'right'   // 遵循规律，右下左上的方向，遍历完一个方向后改变边界值和方向    const result = []    while(left <= right && top <= bottom){        if(direction === 'right'){            for(let i = left; i <= right; i++){                result.push(matrix[top][i])            }            top++            direction = 'bottom'        }else if(direction === 'bottom'){            for(let i = top; i <= bottom; i++){                result.push(matrix[i][right])            }            right--            direction = 'left'        }else if(direction === 'left'){            for(let i = right; i >= left; i--){                result.push(matrix[bottom][i])            }            bottom--            direction = 'top'        }else if(direction === 'top'){            for(let i = bottom; i >= top; i--){                result.push(matrix[i][left])            }            left++            direction = 'right'        }    }    return result};
+/**
+ * @param {number[][]} matrix
+ * @return {number[]}
+ */
+var spiralOrder = function(matrix) {
+    if(matrix.length === 0){
+        return []
+    }
+    let top = 0
+    let right = matrix[0].length - 1
+    let bottom = matrix.length - 1
+    let left = 0
+    let direction = 'right'   // 遵循规律，右下左上的方向，遍历完一个方向后改变边界值和方向
+    const result = []
+    while(left <= right && top <= bottom){
+        if(direction === 'right'){
+            for(let i = left; i <= right; i++){
+                result.push(matrix[top][i])
+            }
+            top++
+            direction = 'bottom'
+        }else if(direction === 'bottom'){
+            for(let i = top; i <= bottom; i++){
+                result.push(matrix[i][right])
+            }
+            right--
+            direction = 'left'
+        }else if(direction === 'left'){
+            for(let i = right; i >= left; i--){
+                result.push(matrix[bottom][i])
+            }
+            bottom--
+            direction = 'top'
+        }else if(direction === 'top'){
+            for(let i = bottom; i >= top; i--){
+                result.push(matrix[i][left])
+            }
+            left++
+            direction = 'right'
+        }
+    }
+    return result
+};
 ```
 
 
@@ -502,7 +556,30 @@ var merge = function(intervals) {
 ### [62. 不同路径](https://leetcode-cn.com/problems/unique-paths/)
 
 ```js
-/** * @param {number} m * @param {number} n * @return {number} */// 当前路径等于上边的格子的路径数加上左边格子路径数，第一行以及第一列的格子路径数都为1，所以只需要遍历求出每个格子的路径数，最后得到答案。var uniquePaths = function(m, n) {    const memo = []    for(let i = 0; i < n; i++){        memo.push([])    }    for(let row = 0; row < n; row++){        memo[row][0] = 1    }    for(let column = 0; column < m; column++){        memo[0][column] = 1    }    for(let i = 1; i < n; i++){        for(let j = 1; j < m; j++){            memo[i][j] = memo[i-1][j] + memo[i][j-1]        }    }    return memo[n-1][m-1]};
+/**
+ * @param {number} m
+ * @param {number} n
+ * @return {number}
+ */
+// 当前路径等于上边的格子的路径数加上左边格子路径数，第一行以及第一列的格子路径数都为1，所以只需要遍历求出每个格子的路径数，最后得到答案。
+var uniquePaths = function(m, n) {
+    const memo = []
+    for(let i = 0; i < n; i++){
+        memo.push([])
+    }
+    for(let row = 0; row < n; row++){
+        memo[row][0] = 1
+    }
+    for(let column = 0; column < m; column++){
+        memo[0][column] = 1
+    }
+    for(let i = 1; i < n; i++){
+        for(let j = 1; j < m; j++){
+            memo[i][j] = memo[i-1][j] + memo[i][j-1]
+        }
+    }
+    return memo[n-1][m-1]
+};
 ```
 
 
@@ -510,7 +587,23 @@ var merge = function(intervals) {
 ### [66. 加一](https://leetcode-cn.com/problems/plus-one/)
 
 ```js
-/** * @param {number[]} digits * @return {number[]} */var plusOne = function(digits) {    let i = digits.length - 1    while(digits[i] === 9){        digits[i] = 0        i--    }    if(i < 0){        digits.unshift(1)    }else{        digits[i] += 1    }    return digits};
+/**
+ * @param {number[]} digits
+ * @return {number[]}
+ */
+var plusOne = function(digits) {
+    let i = digits.length - 1
+    while(digits[i] === 9){
+        digits[i] = 0
+        i--
+    }
+    if(i < 0){
+        digits.unshift(1)
+    }else{
+        digits[i] += 1
+    }
+    return digits
+};
 ```
 
 ### [70. 爬楼梯](https://leetcode-cn.com/problems/climbing-stairs/)
@@ -747,13 +840,74 @@ var reverseBetween = function(head, left, right) {
 ### [121. 买卖股票的最佳时机](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/)
 
 ```js
-/** * @param {number[]} prices * @return {number} */// 记录当前值之前的所有最低的价格，因为它是最佳买入的机会// 用当前值减去最低的买入价格，记录最高利润var maxProfit = function(prices) {    let minPrice = prices[0]    let maxProfit = 0    for(let i = 0; i < prices.length; i++){        if(prices[i] < minPrice){            minPrice = prices[i]        }else if((prices[i] - minPrice) > maxProfit){            maxProfit = prices[i] - minPrice        }    }    return maxProfit};
+/**
+ * @param {number[]} prices
+ * @return {number}
+ */
+// 记录当前值之前的所有最低的价格，因为它是最佳买入的机会
+// 用当前值减去最低的买入价格，记录最高利润
+var maxProfit = function(prices) {
+    let minPrice = prices[0]
+    let maxProfit = 0
+    for(let i = 0; i < prices.length; i++){
+        if(prices[i] < minPrice){
+            minPrice = prices[i]
+        }else if((prices[i] - minPrice) > maxProfit){
+            maxProfit = prices[i] - minPrice
+        }
+    }
+    return maxProfit
+};
 ```
+
+
 
 ### [122. 买卖股票的最佳时机 II](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/)
 
 ```js
-/** * @param {number[]} prices * @return {number} */// 这个方法是根据如果上下坡则不处理，获取到达坡底和峰顶的值，进行相减，注意相等时也需要i++否则死循环var maxProfit = function(prices) {    if(prices.length === 0){        return 0    }    let i = 0    let valley = prices[0]    let peak = prices[0]    let maxProfit = 0    while(i < prices.length - 1){        while(i < prices.length - 1 && prices[i] >= prices[i+1]){ // 下坡            i++        }        valley = prices[i]        while(i < prices.length - 1 && prices[i] <= prices[i+1]){ // 上坡            i++        }        peak = prices[i]        maxProfit += peak - valley    }    return maxProfit};// 方法二： 通过比较后一天是否大于今天，如果大于，则计算利润，每天比较var maxProfit = function(prices) {    if(prices.length === 0){        return 0    }    let i = 0    let maxProfit = 0    while(i < prices.length - 1){        if(prices[i+1] - prices[i] > 0){            maxProfit += prices[i+1] - prices[i]        }        i++    }    return maxProfit};
+/**
+ * @param {number[]} prices
+ * @return {number}
+ */
+// 这个方法是根据如果上下坡则不处理，获取到达坡底和峰顶的值，进行相减，注意相等时也需要i++否则死循环
+var maxProfit = function(prices) {
+    if(prices.length === 0){
+        return 0
+    }
+    let i = 0
+    let valley = prices[0]
+    let peak = prices[0]
+    let maxProfit = 0
+    while(i < prices.length - 1){
+        while(i < prices.length - 1 && prices[i] >= prices[i+1]){ // 下坡
+            i++
+        }
+        valley = prices[i]
+        while(i < prices.length - 1 && prices[i] <= prices[i+1]){ // 上坡
+            i++
+        }
+        peak = prices[i]
+        maxProfit += peak - valley
+    }
+    return maxProfit
+};
+
+
+// 方法二： 通过比较后一天是否大于今天，如果大于，则计算利润，每天比较
+var maxProfit = function(prices) {
+    if(prices.length === 0){
+        return 0
+    }
+    let i = 0
+    let maxProfit = 0
+    while(i < prices.length - 1){
+        if(prices[i+1] - prices[i] > 0){
+            maxProfit += prices[i+1] - prices[i]
+        }
+        i++
+    }
+    return maxProfit
+};
 ```
 
 
@@ -761,7 +915,26 @@ var reverseBetween = function(head, left, right) {
 ### [125. 验证回文串](https://leetcode-cn.com/problems/valid-palindrome/)
 
 ```js
-/** * @param {string} s * @return {boolean} */var isPalindrome = function(s) {    s = s.toLowerCase().replace(/[\W_]/g, '')  // \W : 匹配非 数字,字母,_    if(s.length <= 1){        return true    }    let left = 0    let right = s.length - 1    while(left < right){        if(s[left] !== s[right]){            return false        }        left++        right--    }    return true};
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isPalindrome = function(s) {
+    s = s.toLowerCase().replace(/[\W_]/g, '')  // \W : 匹配非 数字,字母,_
+    if(s.length <= 1){
+        return true
+    }
+    let left = 0
+    let right = s.length - 1
+    while(left < right){
+        if(s[left] !== s[right]){
+            return false
+        }
+        left++
+        right--
+    }
+    return true
+};
 ```
 
 
@@ -838,7 +1011,44 @@ var hasCycle = function(head) {
 ### [142. 环形链表 II](https://leetcode-cn.com/problems/linked-list-cycle-ii/)
 
 ```js
-/** * Definition for singly-linked list. * function ListNode(val) { *     this.val = val; *     this.next = null; * } *//** * @param {ListNode} head * @return {ListNode} */var detectCycle = function(head) {    if(head === null){        return null    }    let isCycle = false    let slow = head    let fast = head    while(fast.next !== null && fast.next.next !== null){        slow = slow.next        fast = fast.next.next        if(slow === fast){            isCycle = true            break        }    }    if(!isCycle){        return null    }    // 如果两者相遇了，则让fast回到head，fast和slow走相同步数可以相遇，相遇点则是入环位置    fast = head    while(slow !== fast){        fast = fast.next        slow = slow.next    }    return fast};
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var detectCycle = function(head) {
+    if(head === null){
+        return null
+    }
+    let isCycle = false
+    let slow = head
+    let fast = head
+    while(fast.next !== null && fast.next.next !== null){
+        slow = slow.next
+        fast = fast.next.next
+        if(slow === fast){
+            isCycle = true
+            break
+        }
+    }
+    if(!isCycle){
+        return null
+    }
+    // 如果两者相遇了，则让fast回到head，fast和slow走相同步数可以相遇，相遇点则是入环位置
+    fast = head
+    while(slow !== fast){
+        fast = fast.next
+        slow = slow.next
+    }
+    return fast
+};
 ```
 
 
@@ -846,7 +1056,24 @@ var hasCycle = function(head) {
 ### [152. 乘积最大子数组](https://leetcode-cn.com/problems/maximum-product-subarray/)
 
 ```js
-/** * @param {number[]} nums * @return {number} */var maxProduct = function(nums) {    let maxProduct = []    let minProduct = []    maxProduct[0] = nums[0]    minProduct[0] = nums[0]    let max = nums[0]    for(let i = 1; i < nums.length; i++){        // 需要考虑到负数×负数可能会有最大的值，所以需要记录最小的值，最小的值×当前值可能为最大        maxProduct[i] = Math.max(nums[i], maxProduct[i-1] * nums[i], minProduct[i-1] * nums[i])        minProduct[i] = Math.min(nums[i], maxProduct[i-1] * nums[i], minProduct[i-1] * nums[i])        max = Math.max(max, maxProduct[i])    }    return max};
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxProduct = function(nums) {
+    let maxProduct = []
+    let minProduct = []
+    maxProduct[0] = nums[0]
+    minProduct[0] = nums[0]
+    let max = nums[0]
+    for(let i = 1; i < nums.length; i++){
+        // 需要考虑到负数×负数可能会有最大的值，所以需要记录最小的值，最小的值×当前值可能为最大
+        maxProduct[i] = Math.max(nums[i], maxProduct[i-1] * nums[i], minProduct[i-1] * nums[i])
+        minProduct[i] = Math.min(nums[i], maxProduct[i-1] * nums[i], minProduct[i-1] * nums[i])
+        max = Math.max(max, maxProduct[i])
+    }
+    return max
+};
 ```
 
 
@@ -854,7 +1081,36 @@ var hasCycle = function(head) {
 ### [153. 寻找旋转排序数组中的最小值](https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array/)
 
 ```js
-/** * @param {number[]} nums * @return {number} */var findMin = function(nums) {    if(nums.length <= 1){        return nums    }    let left = 0    let right = nums.length - 1    // 当没有进行反转，还是一个升序数组则返回第一项    if(nums[right] > nums[0]){        return nums[0]    }    let mid    while(left < right){        mid = Math.floor(left + (right - left)/ 2) // 防止(left + right) / 2 溢出        if(nums[mid - 1] > nums[mid]){            return nums[mid]        }        if(nums[mid] > nums[mid + 1]){            return nums[mid + 1]        }        if(nums[mid] > nums[left]){            left = mid + 1        }else{            right = mid - 1        }    }};
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findMin = function(nums) {
+    if(nums.length <= 1){
+        return nums
+    }
+    let left = 0
+    let right = nums.length - 1
+    // 当没有进行反转，还是一个升序数组则返回第一项
+    if(nums[right] > nums[0]){
+        return nums[0]
+    }
+    let mid
+    while(left < right){
+        mid = Math.floor(left + (right - left)/ 2) // 防止(left + right) / 2 溢出
+        if(nums[mid - 1] > nums[mid]){
+            return nums[mid]
+        }
+        if(nums[mid] > nums[mid + 1]){
+            return nums[mid + 1]
+        }
+        if(nums[mid] > nums[left]){
+            left = mid + 1
+        }else{
+            right = mid - 1
+        }
+    }
+};
 ```
 
 
@@ -862,7 +1118,44 @@ var hasCycle = function(head) {
 ### [187. 重复的DNA序列](https://leetcode-cn.com/problems/repeated-dna-sequences/)
 
 ```js
-/** * @param {string} s * @return {string[]} */// Map写法，如果已存在则加一，不存在则为一，最后大于一则加入返回的数组var findRepeatedDnaSequences = function(s) {    const map = new Map()    const result = []    for(let i = 0; i <= s.length - 10; i++){        let str = s.slice(i, i + 10)        if(map.has(str)){            map.set(str, map.get(str)+1)        }else{            map.set(str, 1)        }    }    map.forEach((value, key) => {        if(value > 1){            result.push(key)        }    })    return result};// Set写法，两个set，如果第一个存在则第二个set执行add，否则第一个set执行addvar findRepeatedDnaSequences = function(s) {    const set = new Set()    const result = new Set()    for(let i = 0; i <= s.length - 10; i++){        let str = s.substring(i, i + 10)        if(set.has(str)){            result.add(str)        }else{            set.add(str)        }    }    return Array.from(result)};
+/**
+ * @param {string} s
+ * @return {string[]}
+ */
+// Map写法，如果已存在则加一，不存在则为一，最后大于一则加入返回的数组
+var findRepeatedDnaSequences = function(s) {
+    const map = new Map()
+    const result = []
+    for(let i = 0; i <= s.length - 10; i++){
+        let str = s.slice(i, i + 10)
+        if(map.has(str)){
+            map.set(str, map.get(str)+1)
+        }else{
+            map.set(str, 1)
+        }
+    }
+    map.forEach((value, key) => {
+        if(value > 1){
+            result.push(key)
+        }
+    })
+    return result
+};
+
+// Set写法，两个set，如果第一个存在则第二个set执行add，否则第一个set执行add
+var findRepeatedDnaSequences = function(s) {
+    const set = new Set()
+    const result = new Set()
+    for(let i = 0; i <= s.length - 10; i++){
+        let str = s.substring(i, i + 10)
+        if(set.has(str)){
+            result.add(str)
+        }else{
+            set.add(str)
+        }
+    }
+    return Array.from(result)
+};
 ```
 
 
@@ -957,7 +1250,35 @@ var getIntersectionNode = function(headA, headB) {
 ### [200. 岛屿数量](https://leetcode-cn.com/problems/number-of-islands/)
 
 ```js
-/** * @param {character[][]} grid * @return {number} */// 深度优先遍历＋沉没// 遇到1则count++，开始深度遍历遇到1则设置为0，指到周围都被0包围再遍历下一个var numIslands = function(grid) {    function dfs(row, col){        if(row < 0 || col < 0 || col > grid[0].length - 1 || row > grid.length - 1 || grid[row][col] === '0'){            return ;        }        grid[row][col] = '0'        dfs(row-1, col)        dfs(row+1, col)        dfs(row, col-1)        dfs(row, col+1)    }    let count = 0    for(let i = 0; i < grid.length; i++){        for(let j = 0; j < grid[0].length; j++){            if(grid[i][j] === '1'){                count++                dfs(i, j)            }        }    }    return count};
+/**
+ * @param {character[][]} grid
+ * @return {number}
+ */
+// 深度优先遍历＋沉没
+// 遇到1则count++，开始深度遍历遇到1则设置为0，指到周围都被0包围再遍历下一个
+var numIslands = function(grid) {
+    function dfs(row, col){
+        if(row < 0 || col < 0 || col > grid[0].length - 1 || row > grid.length - 1 || grid[row][col] === '0'){
+            return ;
+        }
+        grid[row][col] = '0'
+        dfs(row-1, col)
+        dfs(row+1, col)
+        dfs(row, col-1)
+        dfs(row, col+1)
+    }
+
+    let count = 0
+    for(let i = 0; i < grid.length; i++){
+        for(let j = 0; j < grid[0].length; j++){
+            if(grid[i][j] === '1'){
+                count++
+                dfs(i, j)
+            }
+        }
+    }
+    return count
+};
 ```
 
 
@@ -965,7 +1286,21 @@ var getIntersectionNode = function(headA, headB) {
 ### [217. 存在重复元素](https://leetcode-cn.com/problems/contains-duplicate/)
 
 ```js
-/** * @param {number[]} nums * @return {boolean} */var containsDuplicate = function(nums) {    const set = new Set()    for(let i of nums){        if(set.has(i)){            return true        }else{            set.add(i)        }    }    return false};
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var containsDuplicate = function(nums) {
+    const set = new Set()
+    for(let i of nums){
+        if(set.has(i)){
+            return true
+        }else{
+            set.add(i)
+        }
+    }
+    return false
+};
 ```
 
 
@@ -1043,7 +1378,37 @@ var productExceptSelf = function(nums) {
 ### [242. 有效的字母异位词](https://leetcode-cn.com/problems/valid-anagram/)
 
 ```js
-/** * @param {string} s * @param {string} t * @return {boolean} */// 创建一个map，第一个字符串的每个字符的个数相加，第二个字符串的每个字符的个数相减，最后判断都为0则为truevar isAnagram = function(s, t) {    const map = new Map()    if(s.length !== t.length){        return false    }    for(let i = 0; i < s.length; i++){        if(map.has(s[i])){            map.set(s[i], map.get(s[i])+1)        }else{            map.set(s[i], 1)        }        if(map.has(t[i])){            map.set(t[i], map.get(t[i])-1)        }else{            map.set(t[i], -1)        }    }    for(let letter of map){        if(letter[1] !== 0){            return false        }    }    return true};
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+// 创建一个map，第一个字符串的每个字符的个数相加，第二个字符串的每个字符的个数相减，最后判断都为0则为true
+var isAnagram = function(s, t) {
+    const map = new Map()
+    if(s.length !== t.length){
+        return false
+    }
+    for(let i = 0; i < s.length; i++){
+        if(map.has(s[i])){
+            map.set(s[i], map.get(s[i])+1)
+        }else{
+            map.set(s[i], 1)
+        }
+
+        if(map.has(t[i])){
+            map.set(t[i], map.get(t[i])-1)
+        }else{
+            map.set(t[i], -1)
+        }
+    }
+    for(let letter of map){
+        if(letter[1] !== 0){
+            return false
+        }
+    }
+    return true
+};
 ```
 
 
@@ -1161,7 +1526,36 @@ var intersection = function(nums1, nums2) {
 ### [419. 甲板上的战舰](https://leetcode-cn.com/problems/battleships-in-a-board/)
 
 ```js
-/** * @param {character[][]} board * @return {number} */// 做法与200题岛屿数量一致，深度优先遍历沉没 var countBattleships = function(board) {    function dfs(row, col){        if(row < 0 || row > board.length-1 || col < 0 || col > board[0].length-1){            return ;        }        if(board[row][col] === 'X'){            board[row][col] = '.'            dfs(row-1, col)            dfs(row+1, col)            dfs(row, col-1)            dfs(row, col+1)        }    }    let result = 0    for(let i = 0; i < board.length; i++){        for(let j = 0; j < board[0].length; j++){            if(board[i][j] === 'X'){                result++                dfs(i, j)            }        }    }    return result};
+/**
+ * @param {character[][]} board
+ * @return {number}
+ */
+// 做法与200题岛屿数量一致，深度优先遍历沉没 
+var countBattleships = function(board) {
+    function dfs(row, col){
+        if(row < 0 || row > board.length-1 || col < 0 || col > board[0].length-1){
+            return ;
+        }
+        if(board[row][col] === 'X'){
+            board[row][col] = '.'
+            dfs(row-1, col)
+            dfs(row+1, col)
+            dfs(row, col-1)
+            dfs(row, col+1)
+        }
+    }
+
+    let result = 0
+    for(let i = 0; i < board.length; i++){
+        for(let j = 0; j < board[0].length; j++){
+            if(board[i][j] === 'X'){
+                result++
+                dfs(i, j)
+            }
+        }
+    }
+    return result
+};
 ```
 
 
