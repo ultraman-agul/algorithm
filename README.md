@@ -178,6 +178,31 @@ var isPalindrome = function(x) {
 
 
 
+### [14. 最长公共前缀](https://leetcode-cn.com/problems/longest-common-prefix/)
+
+```js
+/**
+ * @param {string[]} strs
+ * @return {string}
+ */
+var longestCommonPrefix = function(strs) {
+    let result = strs[0]
+    for(let i = 0; i < result.length; i++){
+        for(let item of strs){
+            if(item[i] !== result[i]){
+                return result.slice(0, i)
+            }
+        }
+    }
+    return result
+};
+// @lc code=end
+
+
+```
+
+
+
 ### [15. 三数之和](https://leetcode-cn.com/problems/3sum/)
 
 > 思路：
@@ -369,6 +394,79 @@ var swapPairs = function(head) {
     }
     return dummy.next
 }; 
+```
+
+### [26. 删除有序数组中的重复项](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/)
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var removeDuplicates = function(nums) {
+    if(nums.length <= 1){
+        return nums.length
+    }
+    for(let i = 0; i < nums.length; i++){
+        for(let j = i + 1; j < nums.length; j++){
+            if(nums[i] === nums[j]){
+                nums.splice(j, 1)
+                j--
+            }
+        }
+    }
+    return nums.length
+};
+```
+
+
+
+### [27. 移除元素](https://leetcode-cn.com/problems/remove-element/)
+
+```js
+/**
+ * @param {number[]} nums
+ * @param {number} val
+ * @return {number}
+ */
+var removeElement = function(nums, val) {
+    if(nums.length === 0){
+        return 0
+    }
+    while(nums.indexOf(val) !== -1){
+        nums.splice(nums.indexOf(val), 1)
+    }
+    return nums.length
+};
+```
+
+
+
+### [35. 搜索插入位置](https://leetcode-cn.com/problems/search-insert-position/)
+
+```js
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var searchInsert = function(nums, target) {
+    let left = 0
+    let right = nums.length - 1
+    let mid
+    while(left <= right){
+        mid = Math.floor(left - (left - right) / 2)
+        if(nums[mid] === target){
+            return mid
+        }
+        if(nums[mid] >= target){
+            right = mid - 1
+        }else{
+            left = mid + 1
+        }
+    }
+    return right + 1  // 可以处理小于最小值，数组之中，大于最大值的情况
+};
 ```
 
 
@@ -605,6 +703,72 @@ var plusOne = function(digits) {
     return digits
 };
 ```
+
+
+
+### [67. 二进制求和](https://leetcode-cn.com/problems/add-binary/)
+
+```js
+/**
+ * @param {string} a
+ * @param {string} b
+ * @return {string}
+ */
+var addBinary = function(a, b) {
+    const result = []
+    let [i, j] = [a.length-1, b.length-1]
+    let carry = 0
+    let sum = 0
+    while(i >= 0 || j >= 0 || carry){
+        let numA = Number(a[i]) ? Number(a[i]) : 0
+        let numB = Number(b[j]) ? Number(b[j]) : 0
+        sum = numA + numB + carry
+        // 只有三种情况，1.  0、1
+        // 2. 2
+        // 3. 3
+        if(sum === 2){ 
+            carry = 1
+            sum = 0
+        }else if(sum === 3){
+            carry = 1
+            sum = 1
+        }else{
+            carry = 0
+        }
+        i--
+        j--
+        result.unshift(sum)
+    }
+    return result.join('')
+};
+```
+
+
+
+### [69. Sqrt(x)](https://leetcode-cn.com/problems/sqrtx/)
+
+```js
+/**
+ * @param {number} x
+ * @return {number}
+ */
+var mySqrt = function(x) {
+    let i = 0
+    if(x === 0){
+        return 0
+    }
+    while(true){
+        i++
+        if(i * i <= x && (i + 1) * (i + 1) > x ){
+            return i
+        }
+    }
+};
+```
+
+
+
+
 
 ### [70. 爬楼梯](https://leetcode-cn.com/problems/climbing-stairs/)
 
@@ -1842,6 +2006,72 @@ var rotateString = function(s, goal) {
 ```
 
 
+
+### [836. 矩形重叠](https://leetcode-cn.com/problems/rectangle-overlap/)
+
+```js
+/**
+ * @param {number[]} rec1
+ * @param {number[]} rec2
+ * @return {boolean}
+ */
+var isRectangleOverlap = function(rec1, rec2) {
+    if(rec1[1] >= rec2[3] || rec1[3] <= rec2[1] || rec1[2] <= rec2[0] || rec1[0] >= rec2[2]){
+        return false
+    }else{
+        return true
+    }
+};
+```
+
+
+
+### [844. 比较含退格的字符串](https://leetcode-cn.com/problems/backspace-string-compare/)
+
+```js
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+var backspaceCompare = function(s, t) {
+    let backspaceS = 0
+    let backspaceT = 0
+    let i = s.length - 1
+    let j = t.length - 1
+    while(i >= 0 || j >= 0){
+        while(i >= 0){
+            if(s[i] === '#'){ // 当遇到退格符号，存储个数
+                backspaceS++
+                i--
+            }else if(backspaceS > 0){ // 当非退格符时检查是否存储有退格符，如果有则指针往前移
+                backspaceS--
+                i--
+            }else{  // 都不是的话退出比较当前值和另一个的值是否相同
+                break
+            }
+        }
+        while(j >= 0){
+            if(t[j] === '#'){
+                backspaceT++
+                j--
+            }else if(backspaceT > 0){
+                backspaceT--
+                j--
+            }else{
+                break
+            }
+        }
+        if(s[i] !== t[j]){
+            return false
+        }
+        i--
+        j--
+    }
+    return true
+};
+
+```
 
 
 
