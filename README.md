@@ -31,6 +31,8 @@ var twoSum = function(nums, target) {
 };
 ```
 
+---
+
 
 
 ### [2. 两数相加](https://leetcode-cn.com/problems/add-two-numbers)
@@ -83,6 +85,8 @@ var addTwoNumbers = function(l1, l2) {
 };
 ```
 
+---
+
 
 
 ### [3. 无重复字符的最长子串](https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/)
@@ -115,6 +119,8 @@ var lengthOfLongestSubstring = function(s) {
     return maxLength
 };
 ```
+
+---
 
 
 
@@ -153,6 +159,8 @@ var longestPalindrome = function(s) {
 };
 ```
 
+---
+
 
 
 ### [9. 回文数](https://leetcode-cn.com/problems/palindrome-number/)
@@ -175,6 +183,8 @@ var isPalindrome = function(x) {
     return true
 };
 ```
+
+---
 
 
 
@@ -200,6 +210,8 @@ var longestCommonPrefix = function(strs) {
 
 
 ```
+
+---
 
 
 
@@ -249,6 +261,8 @@ var threeSum = function(nums) {
 };
 ```
 
+---
+
 
 
 ### [19. 删除链表的倒数第 N 个结点](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/)
@@ -284,6 +298,8 @@ var removeNthFromEnd = function(head, n) {
     return dummy.next
 };
 ```
+
+---
 
 
 
@@ -323,6 +339,8 @@ var isValid = function(s) {
     return true
 };
 ```
+
+---
 
 
 
@@ -364,6 +382,8 @@ var mergeTwoLists = function(list1, list2) {
 };
 ```
 
+---
+
 
 
 ### [24. 两两交换链表中的节点](https://leetcode-cn.com/problems/swap-nodes-in-pairs/)
@@ -396,6 +416,10 @@ var swapPairs = function(head) {
 }; 
 ```
 
+---
+
+
+
 ### [26. 删除有序数组中的重复项](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/)
 
 ```js
@@ -419,6 +443,8 @@ var removeDuplicates = function(nums) {
 };
 ```
 
+---
+
 
 
 ### [27. 移除元素](https://leetcode-cn.com/problems/remove-element/)
@@ -439,6 +465,8 @@ var removeElement = function(nums, val) {
     return nums.length
 };
 ```
+
+---
 
 
 
@@ -469,6 +497,8 @@ var searchInsert = function(nums, target) {
 };
 ```
 
+---
+
 
 
 ### [49. 字母异位词分组](https://leetcode-cn.com/problems/group-anagrams/)
@@ -491,6 +521,8 @@ var groupAnagrams = function(strs) {
     return Array.from(map.values())
 };
 ```
+
+---
 
 
 
@@ -515,6 +547,8 @@ var maxSubArray = function(nums) {
     return max
 }; 
 ```
+
+---
 
 
 
@@ -565,6 +599,8 @@ var spiralOrder = function(matrix) {
     return result
 };
 ```
+
+---
 
 
 
@@ -618,6 +654,8 @@ var canJump = function(nums) {
 };
 ```
 
+---
+
 
 
 ### [56. 合并区间](https://leetcode-cn.com/problems/merge-intervals/)
@@ -648,6 +686,8 @@ var merge = function(intervals) {
     return result
 };
 ```
+
+---
 
 
 
@@ -680,6 +720,8 @@ var uniquePaths = function(m, n) {
 };
 ```
 
+----
+
 
 
 ### [66. 加一](https://leetcode-cn.com/problems/plus-one/)
@@ -703,6 +745,8 @@ var plusOne = function(digits) {
     return digits
 };
 ```
+
+---
 
 
 
@@ -743,6 +787,8 @@ var addBinary = function(a, b) {
 };
 ```
 
+---
+
 
 
 ### [69. Sqrt(x)](https://leetcode-cn.com/problems/sqrtx/)
@@ -766,7 +812,7 @@ var mySqrt = function(x) {
 };
 ```
 
-
+---
 
 
 
@@ -787,6 +833,8 @@ var climbStairs = function(n) {
     return memo[n]
 };
 ```
+
+---
 
 
 
@@ -855,6 +903,8 @@ var setZeroes = function(matrix) {
 }
 ```
 
+---
+
 
 
 ### [83. 删除排序链表中的重复元素](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/)
@@ -908,6 +958,28 @@ var deleteDuplicates = function(head) {
 };
 ```
 
+---
+
+
+
+### [合并两个有序数组](https://leetcode-cn.com/problems/merge-sorted-array/description/)
+
+```js
+/**
+ * @param {number[]} nums1
+ * @param {number} m
+ * @param {number[]} nums2
+ * @param {number} n
+ * @return {void} Do not return anything, modify nums1 in-place instead.
+ */
+var merge = function(nums1, m, nums2, n) {
+    nums1.splice(m, nums1.length - m, ...nums2.slice(0, n))
+    return nums1.sort((a, b) => a - b)
+};
+```
+
+---
+
 
 
 ### [206. 反转链表](https://leetcode-cn.com/problems/reverse-linked-list/)
@@ -949,6 +1021,8 @@ var reverseList = function(head) {
 };
 
 ```
+
+---
 
 
 
@@ -999,6 +1073,8 @@ var reverseBetween = function(head, left, right) {
 };
 ```
 
+---
+
 
 
 ### [121. 买卖股票的最佳时机](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/)
@@ -1023,6 +1099,8 @@ var maxProfit = function(prices) {
     return maxProfit
 };
 ```
+
+---
 
 
 
@@ -1074,6 +1152,8 @@ var maxProfit = function(prices) {
 };
 ```
 
+---
+
 
 
 ### [125. 验证回文串](https://leetcode-cn.com/problems/valid-palindrome/)
@@ -1100,6 +1180,8 @@ var isPalindrome = function(s) {
     return true
 };
 ```
+
+---
 
 
 
@@ -1136,6 +1218,8 @@ var canCompleteCircuit = function(gas, cost) {
 };
 ```
 
+---
+
 
 
 ### [141. 环形链表](https://leetcode-cn.com/problems/linked-list-cycle/)
@@ -1169,6 +1253,8 @@ var hasCycle = function(head) {
     return false
 };
 ```
+
+---
 
 
 
@@ -1215,6 +1301,8 @@ var detectCycle = function(head) {
 };
 ```
 
+---
+
 
 
 ### [152. 乘积最大子数组](https://leetcode-cn.com/problems/maximum-product-subarray/)
@@ -1239,6 +1327,8 @@ var maxProduct = function(nums) {
     return max
 };
 ```
+
+---
 
 
 
@@ -1276,6 +1366,8 @@ var findMin = function(nums) {
     }
 };
 ```
+
+---
 
 
 
@@ -1321,6 +1413,8 @@ var findRepeatedDnaSequences = function(s) {
     return Array.from(result)
 };
 ```
+
+---
 
 
 
@@ -1369,7 +1463,7 @@ var rob = function(nums) {
 };
 ```
 
-
+---
 
 
 
@@ -1409,6 +1503,8 @@ var getIntersectionNode = function(headA, headB) {
 };
 ```
 
+---
+
 
 
 ### [200. 岛屿数量](https://leetcode-cn.com/problems/number-of-islands/)
@@ -1445,6 +1541,8 @@ var numIslands = function(grid) {
 };
 ```
 
+---
+
 
 
 ### [217. 存在重复元素](https://leetcode-cn.com/problems/contains-duplicate/)
@@ -1466,6 +1564,8 @@ var containsDuplicate = function(nums) {
     return false
 };
 ```
+
+---
 
 
 
@@ -1510,6 +1610,8 @@ var containsNearbyDuplicate = function(nums, k) {
 };
 ```
 
+---
+
 
 
 ### [238. 除自身以外数组的乘积](https://leetcode-cn.com/problems/product-of-array-except-self/)
@@ -1536,6 +1638,8 @@ var productExceptSelf = function(nums) {
     return result
 };
 ```
+
+---
 
 
 
@@ -1574,6 +1678,8 @@ var isAnagram = function(s, t) {
     return true
 };
 ```
+
+---
 
 
 
@@ -1622,6 +1728,8 @@ var moveZeroes = function(nums) {
 };
 ```
 
+---
+
 
 
 ### [328. 奇偶链表](https://leetcode-cn.com/problems/odd-even-linked-list/)
@@ -1659,6 +1767,8 @@ var oddEvenList = function(head) {
 };
 ```
 
+---
+
 
 
 ### [349. 两个数组的交集](https://leetcode-cn.com/problems/intersection-of-two-arrays/)
@@ -1684,6 +1794,8 @@ var intersection = function(nums1, nums2) {
     return result
 };
 ```
+
+---
 
 
 
@@ -1721,6 +1833,8 @@ var countBattleships = function(board) {
     return result
 };
 ```
+
+---
 
 
 
@@ -1774,6 +1888,8 @@ var addTwoNumbers = function(l1, l2) {
     return cur
 };
 ```
+
+---
 
 
 
@@ -1838,6 +1954,8 @@ var fib = function(n) {
 };
 ```
 
+---
+
 
 
 ### [680. 验证回文字符串 Ⅱ](https://leetcode-cn.com/problems/valid-palindrome-ii/)
@@ -1870,6 +1988,8 @@ var validPalindrome = function(s) {
     return true
 };
 ```
+
+---
 
 
 
@@ -1909,6 +2029,8 @@ var maxAreaOfIsland = function(grid) {
 };
 ```
 
+---
+
 
 
 ### [704. 二分查找](https://leetcode-cn.com/problems/binary-search/)
@@ -1936,6 +2058,8 @@ var search = function(nums, target) {
     return -1
 };
 ```
+
+---
 
 
 
@@ -1972,6 +2096,8 @@ var floodFill = function(image, sr, sc, newColor) {
 };
 ```
 
+---
+
 
 
 ### [796. 旋转字符串](https://leetcode-cn.com/problems/rotate-string/)
@@ -2005,6 +2131,8 @@ var rotateString = function(s, goal) {
 };
 ```
 
+---
+
 
 
 ### [836. 矩形重叠](https://leetcode-cn.com/problems/rectangle-overlap/)
@@ -2023,6 +2151,8 @@ var isRectangleOverlap = function(rec1, rec2) {
     }
 };
 ```
+
+---
 
 
 
@@ -2073,6 +2203,8 @@ var backspaceCompare = function(s, t) {
 
 ```
 
+---
+
 
 
 # nowcode
@@ -2081,22 +2213,22 @@ var backspaceCompare = function(s, t) {
 
 ```js
 const _quickSort = array => {
-                // 补全代码
-                if(array.length <= 1){ // 终止条件
-                    return array
-                }
-                let midIndex = Math.floor(array.length / 2)
-                let mid = array.splice(midIndex, 1)[0]
-                let left = []
-                let right = []
-                for(let i = 0; i < array.length; i++){
-                    if(array[i] < mid){
-                        left.push(array[i])
-                    }else{
-                        right.push(array[i])
-                    }
-                }
-                return _quickSort(left).concat(mid, _quickSort(right))
-            }
+    // 补全代码
+    if(array.length <= 1){ // 终止条件
+        return array
+    }
+    let midIndex = Math.floor(array.length / 2)
+    let mid = array.splice(midIndex, 1)[0]
+    let left = []
+    let right = []
+    for(let i = 0; i < array.length; i++){
+        if(array[i] < mid){
+            left.push(array[i])
+        }else{
+            right.push(array[i])
+        }
+    }
+    return _quickSort(left).concat(mid, _quickSort(right))
+}
 ```
 
