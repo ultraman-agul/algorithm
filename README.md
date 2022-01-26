@@ -1077,6 +1077,33 @@ var reverseBetween = function(head, left, right) {
 
 
 
+### [118. 杨辉三角](https://leetcode-cn.com/problems/pascals-triangle/)
+
+```js
+var generate = function(numRows) {
+    const result = [[1]]
+    if(numRows === 1){
+        return result
+    }
+    for(let i = 1; i < numRows; i++){
+        const arr = []
+        for(let j = 0; j <= i; j++){
+            let left = result[i-1][j-1] ? result[i-1][j-1] : 0
+            let right = result[i-1][j] ? result[i-1][j] : 0
+            arr.push(left + right)
+        }
+        result.push(arr)
+    }
+    return result
+};
+```
+
+---
+
+
+
+
+
 ### [121. 买卖股票的最佳时机](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/)
 
 ```js
@@ -1219,6 +1246,39 @@ var canCompleteCircuit = function(gas, cost) {
 ```
 
 ---
+
+
+
+### [136. 只出现一次的数字](https://leetcode-cn.com/problems/single-number/)
+
+```js
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var singleNumber = function(nums) {
+    for(let i = 0; i < nums.length; i++){
+        if(nums.indexOf(nums[i]) === nums.lastIndexOf(nums[i])){
+            return nums[i]
+        }
+    }
+};
+
+// 借用一个set
+var singleNumber = function(nums) {
+    const set = new Set()
+    for(let i = 0; i < nums.length; i++){
+        if(set.has(nums[i])){
+            set.delete(nums[i])
+        }else{
+            set.add(nums[i])
+        }
+    }
+    for(let i of set){
+        return i
+    }
+};
+```
 
 
 
@@ -1368,6 +1428,50 @@ var findMin = function(nums) {
 ```
 
 ---
+
+
+
+### [155. 最小栈](https://leetcode-cn.com/problems/min-stack/)
+
+```js
+
+var MinStack = function() {
+    this.stack = []
+    this.minS = [Infinity]
+};
+
+/** 
+ * @param {number} val
+ * @return {void}
+ */
+MinStack.prototype.push = function(val) {
+    this.stack.push(val)
+    // 比较新入栈的和minStack栈顶的元素，取最小的入栈
+    this.minS.push(Math.min(this.minS[this.minS.length-1], val))
+};
+
+/**
+ * @return {void}
+ */
+MinStack.prototype.pop = function() {
+    this.stack.pop()
+    this.minS.pop() // 正常出栈
+};
+
+/**
+ * @return {number}
+ */
+MinStack.prototype.top = function() {
+    return this.stack[this.stack.length-1]
+};
+
+/**
+ * @return {number}
+ */
+MinStack.prototype.getMin = function() {
+    return this.minS[this.minS.length-1]
+};
+```
 
 
 
@@ -1538,6 +1642,40 @@ var numIslands = function(grid) {
         }
     }
     return count
+};
+```
+
+---
+
+
+
+### [202. 快乐数](https://leetcode-cn.com/problems/happy-number/)
+
+```js
+// @lc code=start
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+var isHappy = function (n) {
+    let sumNum = n.toString()
+    const map = new Map()
+    while (n >= 1) {
+        let sum = 0
+        if (n == 1) {
+            return true
+        }
+        for (let i = 0; i < sumNum.length; i++) {
+            sum += sumNum[i] ** 2
+        }
+        if (map.has(sum)) {  // 如果已经存在这个值，证明已经循环了
+            return false
+        }
+        map.set(sum, true)  // 把不存在的值存起来
+        sum = sum.toString()
+        n = sum
+        sumNum = sum
+    }
 };
 ```
 
@@ -1796,6 +1934,61 @@ var intersection = function(nums1, nums2) {
 ```
 
 ---
+
+
+
+### [374. 猜数字大小](https://leetcode-cn.com/problems/guess-number-higher-or-lower/)
+
+```js
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var guessNumber = function(n) {
+    // 二分法
+    let left = 0
+    let right = n
+    while(left < right){
+        let mid = Math.floor(left + (right - left) / 2) 
+        if(guess(mid) <= 0){ // 题意是目标比猜的还要小
+            right = mid
+        }else{
+            left = mid + 1
+        }
+    }
+    return left
+};
+```
+
+---
+
+
+
+### [409. 最长回文串](https://leetcode-cn.com/problems/longest-palindrome/)
+
+```js
+// @lc code=start
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var longestPalindrome = function(s) {
+    let map = new Map()
+    let result = 0
+    for(let i of s){
+        if(map.has(i)){   // 当存在时，证明已经有两个相同的值了，可以形成回文，result += 2
+            map.delete(i)
+            result += 2
+        }else{   // 当不存在时，加入map
+            map.set(i)
+        }
+    }
+    if(map.size){  // 有剩余证明是奇数个，最多只能取一个放到回文中间
+        result++
+    }
+    return result
+};
+```
 
 
 
@@ -2229,6 +2422,63 @@ const _quickSort = array => {
         }
     }
     return _quickSort(left).concat(mid, _quickSort(right))
+}
+```
+
+
+
+### [**Array.map**](https://www.nowcoder.com/practice/8300c998180c4ebbbd2a5aaeb7fbc77c?tpId=274&tags=&title=&difficulty=0&judgeStatus=0&rp=1)
+
+```js
+Array.prototype._map = function(fn){
+    const result = []
+    for(let item of this){
+        result.push(fn(item))
+    }
+    return result
+}
+```
+
+
+
+### **Array.filter**
+
+```js
+Array.prototype._filter = function (fn){
+    const result = []
+    for(let item of this){
+        if(fn(item)){
+            result.push(item)
+        }
+    }
+    return result
+}
+```
+
+
+
+### **Array.reduce**
+
+```js
+ Array.prototype._reduce = function(fn){
+     let cur = this[0]
+     for(let i = 1; i < this.length; i++){
+         cur =  fn(cur, this[i])
+     }
+     return cur
+ }
+```
+
+
+
+### **_objectCreate**
+
+```js
+const _objectCreate = proto => {
+    // 补全代码
+    const Obj = {}
+    Obj.prototype = proto
+    return Obj
 }
 ```
 
